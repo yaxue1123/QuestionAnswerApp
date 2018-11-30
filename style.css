@@ -18,18 +18,21 @@ nav {
     justify-content: flex-start;
     align-items: center;
     text-decoration: none; 
+    cursor: pointer;
 }
 
 nav a {
     text-decoration: none;
     color: #FFF;
     padding-left: 2em;
+    cursor: pointer;
 }
 
 section {
     margin: 1% 20%;
     background-color: #c2dde6;
     padding: 1.5% 2%;
+    min-height: 10em;
 }
 
 .header-section {
@@ -39,7 +42,7 @@ section {
 
 .questions-section {
     background-color: #bccbde;
-    height: 32em;
+    height: 30em;
     overflow-y: scroll;
     border: 2px solid #bccbde;
 }
@@ -75,7 +78,7 @@ section {
 }
 
 .review-section {
-    height: 50em;
+    height: 30em;
 }
 
 form {

@@ -2,7 +2,7 @@ var root_url = "http://comp426.cs.unc.edu:3002/api/";
 
 $(document).ready(() => {
     // ################### Log in #############################
-    $('body').on('click', '#login_btn, #home', function() {
+    $('body').on('click', '#login_btn', function() {
 	
 	let user = $('#login_user').val();
 	let pass = $('#login_pass').val();
@@ -28,8 +28,13 @@ $(document).ready(() => {
 	       });
     });
 
+    // ################### from review to home #############################
+    $('body').on('click', '#home', function() {
+        build_question_interface("all", "render");
+    })
+
     // ################### from logout to log in #############################
-    $('body').on('click', '#logout', function(){
+    $('body').on('click', '#login', function(){
         build_login_interface();
     })
 
