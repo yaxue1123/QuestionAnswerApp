@@ -19,7 +19,7 @@ $(document).ready(() => {
                     if (response.status) {
                     build_question_interface("all", "render");
                     } else {
-                    $(this).append("Login failed. Try again.");
+                    $('#mesg_div').html("Login failed. Try again.");
                     }
                 },
                 error: () => {
@@ -155,7 +155,7 @@ var build_login_interface = function() {
     body.empty();
 
     body.append('<section class="login-section"><h1>COMP426 A4 Q&A APP by Yaxue</h1>' + 
-    '<div id="login_div"><input type="text" id="login_user"><br>' + 
+    '<div id="login_div">User: <input type="text" id="login_user"><br>' + 
     'Password: <input type="text" id="login_pass"><br>' +
     '<button id="login_btn">Login</button></div id="mesg_div"><div></div></section>');
 
@@ -172,7 +172,7 @@ var build_logout_interface = function() {
       body.append('<nav><a id="login">Login</a></nav>');
 
       // Add logout success message.
-      body.append('<section><a>You have logged out.</a></section>');
+      body.append('<section><h1>You have logged out.</h1></section>');
 }
 
 // ##################################################################################
@@ -190,7 +190,7 @@ var build_review_interface = function(operation) {
         // Add header and review field section.
         body.append("<section class='header-section'>" + 
             "<div class='container header-container'><h1>Review Mode</h1></div>" + 
-            "<p>Choose the answer that looks better. If the answer's are similar, choose the 'equal' option.</p></section>" +
+            "<h2>Choose the answer that looks better. If the answer's are similar, choose the 'equal' option.</h2></section>" +
             "<section class='review-section'></section>");
     } else {
         // only empty the section.
@@ -242,7 +242,8 @@ var build_question_interface = function (id, operation) {
     
         // Add header.
         body.append('<section class="header-section">' + 
-            '<div class="container header-container"><h1>Questions and Answers</h1></div></section>');
+            '<div class="container header-container"><h1>Questions and Answers</h1>' + 
+            '<h2>Following are questions about mordern web programming. Feel free to submit, delete or edit your answers.</h2></div></section>');
         
         // Add main body of questions and answers.
         // Add control buttons and search function.
@@ -277,7 +278,7 @@ var build_question_interface = function (id, operation) {
                             let answer = response.data;
                             qdiv.append('<input type="text" value="' + answer.answer_text + '" id="input_' + qid + '">');
                             qdiv.append('<button class = "delete" qid="' + qid + '">Delete</button>');
-                            qdiv.append('<button class = "edit" qid="' + qid + '">Edit</button>');
+                            qdiv.append('<button class = "edit" qid="' + qid + '">Update</button>');
                             qdiv.addClass('answered');
                        } else {
                             qdiv.append('<input id="input_' + qid +'">');
@@ -318,6 +319,9 @@ var build_question_interface = function (id, operation) {
                         qdiv.children(".count").remove();
                         qdiv.append('<div class="count">Answer count: ' + answerCount + '</div>');
 
+                        // Remove edit message if there is any.
+                        qdiv.children("#edit-message").remove();
+
                         // Input.
                         qdiv.children("input").remove();
                         if (answer !== null) {
@@ -331,7 +335,7 @@ var build_question_interface = function (id, operation) {
                         if (operation === "submit" || operation === "edit") {
                             // add "delete" and "edit".
                             qdiv.append('<button class = "delete" qid="' + id + '">Delete</button>');
-                            qdiv.append('<button class = "edit" qid="' + id + '">Edit</button>');
+                            qdiv.append('<button class = "edit" qid="' + id + '">Update</button>');
                             // Change background color.
                             qdiv.css('background-color', '#cdd422');
                         } else if (operation === "delete") {
@@ -339,6 +343,11 @@ var build_question_interface = function (id, operation) {
                             qdiv.append('<button class="submit" qid="' + id + '">Submit</button>');
                             qdiv.css('background-color', '');
                         } 
+
+                        // edit success message.
+                        if (operation === "edit") {
+                            qdiv.append('<a id="edit-message">Update successfully.</a>');
+                        }
                         
                     }
                     }); 
